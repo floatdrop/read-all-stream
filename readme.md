@@ -1,4 +1,4 @@
-# read-all-stream [![Build Status](https://travis-ci.org/floatdrop/read-all-stream.svg?branch=master)](https://travis-ci.org/floatdrop/read-all-stream)
+# read-all-stream [![Build Status][travis-image]][travis-url]
 
 > Read stream to buffer or string
 
@@ -65,3 +65,6 @@ These arguments will be passed to callback.
 ## License
 
 MIT © [Vsevolod Strukchinsky](floatdrop@gmail.com)
+
+[travis-url]: https://travis-ci.org/floatdrop/read-all-stream
+[travis-image]: http://img.shields.io/travis/floatdrop/read-all-stream.svg?style=flat
