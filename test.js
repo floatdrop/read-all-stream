@@ -7,7 +7,9 @@ var Readable = require('stream').Readable;
 
 it('should pass error to callback', function (done) {
 	var stream = new Readable();
-	stream._read = function () {};
+	stream._read = function () {
+		setTimeout(stream.push.bind(stream), 20, null);
+	};
 
 	read(stream, function (err) {
 		if (!err) {

@@ -30,7 +30,6 @@ module.exports = function read(res, options, cb) {
 
 	res.once('error', function (error) {
 		err = error;
-		res.emit('end');
 	});
 
 	res.once('end', function () {
