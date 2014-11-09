@@ -23,8 +23,6 @@ read(stream, 'utf-8', function (err, data, message) {
 
 ### API
 
-It's a `GET` request by default, but can be changed in `options`.
-
 #### read(stream, [options], [callback], [args...])
 
 ##### stream
