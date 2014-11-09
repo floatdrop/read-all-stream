@@ -1,6 +1,6 @@
 {
   "name": "read-all-stream",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Read all stream content and pass it to callback",
   "license": "MIT",
   "repository": "floatdrop/read-all-stream",
