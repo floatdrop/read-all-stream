@@ -56,3 +56,25 @@ it('should add arguments to callback', function (done) {
 		done();
 	}, 'bingo');
 });
+
+it('should work with undefined encoding', function (done) {
+	var stream = new Readable();
+	stream.push('woo ');
+	stream.push('hoo\n');
+	stream.push(null);
+
+	read(stream, undefined, function (err, data) {
+		assert(/woo hoo/.test(data));
+		done();
+	});
+});
+
+it('should work with undefined encoding', function (done) {
+	var stream = new Readable();
+	stream.push(null);
+
+	read(stream, null, function (err, data) {
+		assert(data instanceof Buffer);
+		done();
+	});
+});

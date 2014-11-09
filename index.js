@@ -15,6 +15,10 @@ module.exports = function read(res, options, cb) {
 		options = { encoding: options };
 	}
 
+	if (options === undefined || options === null) {
+		options = { encoding: options }
+	}
+
 	var chunks = [];
 	var len = 0;
 	var err = null;
