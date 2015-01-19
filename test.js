@@ -49,16 +49,6 @@ it('should read data to string', function (done) {
 	});
 });
 
-it('should add arguments to callback', function (done) {
-	var stream = new Readable();
-	stream.push(null);
-
-	read(stream, 'utf-8', function (err, data, message) {
-		assert(/bingo/.test(message));
-		done();
-	}, 'bingo');
-});
-
 it('should work with undefined encoding', function (done) {
 	var stream = new Readable();
 	stream.push('woo ');

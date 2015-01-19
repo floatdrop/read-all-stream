@@ -1,16 +1,9 @@
 'use strict';
 
-var apply = require('fast-apply');
-
 module.exports = function read(res, options, cb) {
-
-	var _args = arguments;
-	var argsLength = 3;
-
 	if (typeof options === 'function') {
 		cb = options;
 		options = {};
-		argsLength --;
 	}
 
 	if (typeof options === 'string' || options === undefined || options === null) {
@@ -40,12 +33,6 @@ module.exports = function read(res, options, cb) {
 			data = data.toString(options.encoding || 'utf-8');
 		}
 
-		var args = [err, data];
-
-		for (var i = argsLength; i < _args.length; i++) {
-			args.push(_args[i]);
-		}
-
-		apply(cb, null, args);
+		cb(err, data);
 	});
 };
