@@ -14,10 +14,10 @@ $ npm install --save read-all-stream
 var read = require('read-all-stream');
 var stream = fs.createReadStream('index.js');
 
-read(stream, 'utf-8', function (err, data, message) {
-	console.log(message + data.length);
-	//=> Hello, your data length: 42
-}, 'Hello, your data length: ');
+read(stream, 'utf-8', function (err, data) {
+	console.log(data.length);
+	//=> 42
+});
 
 ```
 
@@ -46,7 +46,7 @@ Default: `'utf8'`
 
 Encoding to be used on `toString` of the data. If null, the body is returned as a Buffer.
 
-##### callback(err, data, args...)
+##### callback(err, data)
 
 ###### err
 
@@ -55,10 +55,6 @@ Encoding to be used on `toString` of the data. If null, the body is returned as 
 ###### data
 
 The data in stream.
-
-##### args...
-
-These arguments will be passed to callback.
 
 ## License
 
