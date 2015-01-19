@@ -37,7 +37,7 @@ Event emitter, which `data` events will be consumed.
 Type: `object` or `string`
 
 If type of `options` is `string`, then it will be used as encoding.
-If type is `Object`, then next options is available:
+If type is `Object`, then next options are available:
 
 ##### options.encoding
 
