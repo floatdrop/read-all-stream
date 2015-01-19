@@ -11,21 +11,20 @@ module.exports = function read(res, options, cb) {
 		argsLength --;
 	}
 
-	if (typeof options === 'string') {
+	if (typeof options === 'string' || options === undefined || options === null) {
 		options = { encoding: options };
-	}
-
-	if (options === undefined || options === null) {
-		options = { encoding: options }
 	}
 
 	var chunks = [];
 	var len = 0;
 	var err = null;
 
-	res.on('data', function (chunk) {
-		chunks.push(chunk);
-		len += chunk.length;
+	res.on('readable', function () {
+		var chunk;
+		while (chunk = res.read()) {
+			chunks.push(chunk);
+			len += chunk.length;
+		}
 	});
 
 	res.once('error', function (error) {

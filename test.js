@@ -25,7 +25,7 @@ it('should pass error to callback', function (done) {
 	setTimeout(stream.emit.bind(stream, 'error', 'bang!'), 10);
 });
 
-it('should read data from stream to Buffer', function (done) {
+it('should read data to Buffer', function (done) {
 	var stream = new Readable();
 	stream.push('woo ');
 	stream.push('hoo\n');
@@ -37,7 +37,7 @@ it('should read data from stream to Buffer', function (done) {
 	});
 });
 
-it('should read data from stream to string', function (done) {
+it('should read data to string', function (done) {
 	var stream = new Readable();
 	stream.push('woo ');
 	stream.push('hoo\n');
@@ -71,7 +71,7 @@ it('should work with undefined encoding', function (done) {
 	});
 });
 
-it('should work with undefined encoding', function (done) {
+it('should work with empty stream', function (done) {
 	var stream = new Readable();
 	stream.push(null);
 
