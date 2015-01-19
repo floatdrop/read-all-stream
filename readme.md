@@ -23,7 +23,7 @@ read(stream, 'utf-8', function (err, data) {
 
 ### API
 
-#### read(stream, [options], [callback], [args...])
+#### read(stream, [options], callback)
 
 ##### stream
 

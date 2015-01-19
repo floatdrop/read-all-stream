@@ -70,3 +70,13 @@ it('should work with empty stream', function (done) {
 		done();
 	});
 });
+
+it('should throw with invalid arguments', function () {
+	assert.throws(function () {
+		read();
+	}, /stream argument is required/);
+
+	assert.throws(function () {
+		read(new Readable());
+	}, /callback argument is required/);
+});

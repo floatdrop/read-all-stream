@@ -1,6 +1,10 @@
 'use strict';
 
-module.exports = function read(res, options, cb) {
+module.exports = function read(stream, options, cb) {
+	if (!stream) {
+		throw new Error('stream argument is required');
+	}
+
 	if (typeof options === 'function') {
 		cb = options;
 		options = {};
@@ -10,23 +14,27 @@ module.exports = function read(res, options, cb) {
 		options = { encoding: options };
 	}
 
+	if (!cb) {
+		throw new Error('callback argument is required');
+	}
+
 	var chunks = [];
 	var len = 0;
 	var err = null;
 
-	res.on('readable', function () {
+	stream.on('readable', function () {
 		var chunk;
-		while (chunk = res.read()) {
+		while (chunk = stream.read()) {
 			chunks.push(chunk);
 			len += chunk.length;
 		}
 	});
 
-	res.once('error', function (error) {
+	stream.once('error', function (error) {
 		err = error;
 	});
 
-	res.once('end', function () {
+	stream.once('end', function () {
 		var data = Buffer.concat(chunks, len);
 
 		if (options.encoding !== null) {
