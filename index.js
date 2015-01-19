@@ -1,5 +1,7 @@
 'use strict';
 
+var apply = require('fast-apply');
+
 module.exports = function read(res, options, cb) {
 
 	var _args = arguments;
@@ -44,6 +46,6 @@ module.exports = function read(res, options, cb) {
 			args.push(_args[i]);
 		}
 
-		cb.apply(null, args);
+		apply(cb, null, args);
 	});
 };
