@@ -22,12 +22,9 @@ module.exports = function read(stream, options, cb) {
 	var len = 0;
 	var err = null;
 
-	stream.on('readable', function () {
-		var chunk;
-		while (chunk = stream.read()) {
-			chunks.push(chunk);
-			len += chunk.length;
-		}
+	stream.on('data', function (chunk) {
+		chunks.push(chunk);
+		len += chunk.length;
 	});
 
 	stream.once('error', function (error) {
