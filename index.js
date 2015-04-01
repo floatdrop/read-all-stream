@@ -20,16 +20,13 @@ module.exports = function read(stream, options, cb) {
 
 	var chunks = [];
 	var len = 0;
-	var err = null;
 
 	stream.on('data', function (chunk) {
 		chunks.push(chunk);
 		len += chunk.length;
 	});
 
-	stream.once('error', function (error) {
-		err = error;
-	});
+	stream.once('error', cb);
 
 	stream.once('end', function () {
 		var data = Buffer.concat(chunks, len);
@@ -38,6 +35,6 @@ module.exports = function read(stream, options, cb) {
 			data = data.toString(options.encoding || 'utf-8');
 		}
 
-		cb(err, data);
+		cb(null, data);
 	});
 };
