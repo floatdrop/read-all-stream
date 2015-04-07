@@ -41,7 +41,7 @@ it('should read data to string', function (done) {
 	stream.push('hoo\n');
 	stream.push(null);
 
-	read(stream, 'utf-8', function (err, data) {
+	read(stream, 'utf8', function (err, data) {
 		assert(/woo hoo/.test(data));
 		done();
 	});
