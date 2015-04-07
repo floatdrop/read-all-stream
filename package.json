@@ -28,5 +28,8 @@
     "fast-apply": "0.0.3",
     "istanbul": "^0.3.2",
     "mocha": "*"
+  },
+  "dependencies": {
+    "concat-stream": "^1.4.8"
   }
 }

@@ -14,7 +14,7 @@ $ npm install --save read-all-stream
 var read = require('read-all-stream');
 var stream = fs.createReadStream('index.js');
 
-read(stream, 'utf-8', function (err, data) {
+read(stream, 'utf8', function (err, data) {
 	console.log(data.length);
 	//=> 42
 });
