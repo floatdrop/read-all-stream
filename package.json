@@ -12,8 +12,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha",
-    "coverage": "istanbul cover _mocha -- -R spec"
+    "test": "mocha"
   },
   "files": [
     "index.js"
@@ -25,11 +24,9 @@
     "callback"
   ],
   "devDependencies": {
-    "fast-apply": "0.0.3",
-    "istanbul": "^0.3.2",
     "mocha": "*"
   },
   "dependencies": {
-    "concat-stream": "^1.4.8"
+    "readable-stream": "~1.1.13"
   }
 }
