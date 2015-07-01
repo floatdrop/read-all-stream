@@ -73,8 +73,16 @@ it('should throw with invalid arguments', function () {
 	assert.throws(function () {
 		read();
 	}, /stream argument is required/);
+});
 
-	assert.throws(function () {
-		read(new Readable());
-	}, /callback argument is required/);
+it('should return Promise', function (done) {
+	var stream = new Readable();
+	stream.push('woo ');
+	stream.push('hoo\n');
+	stream.push(null);
+
+	read(stream).then(function (data) {
+		assert(/woo hoo/.test(data));
+		done();
+	}, done);
 });

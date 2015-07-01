@@ -2,6 +2,7 @@
 
 var Writable = require('readable-stream').Writable;
 var inherits = require('util').inherits;
+var Promise = require('pinkie-promise');
 
 function BufferStream() {
 	Writable.call(this, { objectMode: true });
@@ -36,23 +37,29 @@ module.exports = function read(stream, options, cb) {
 
 	if (options.encoding === undefined) { options.encoding = 'utf8'; }
 
-	if (!cb) {
-		throw new Error('callback argument is required');
-	}
+	var promise = new Promise(function (resolve, reject) {
+		var sink = new BufferStream();
 
-	var sink = new BufferStream();
+		sink.on('finish', function () {
+			var data = Buffer.concat(this.buffer, this.length);
 
-	sink.on('finish', function () {
-		var data = Buffer.concat(this.buffer, this.length);
+			if (options.encoding) {
+				data = data.toString(options.encoding);
+			}
 
-		if (options.encoding) {
-			data = data.toString(options.encoding);
-		}
+			resolve(data);
+		});
 
-		cb(null, data);
+		stream.once('error', reject);
+
+		stream.pipe(sink);
 	});
 
-	stream.once('error', cb);
+	if (!cb) {
+		return promise;
+	}
 
-	stream.pipe(sink);
+	promise.then(function (data) {
+		cb(null, data);
+	}, cb);
 };

@@ -27,6 +27,7 @@
     "mocha": "*"
   },
   "dependencies": {
+    "pinkie-promise": "^1.0.0",
     "readable-stream": "^2.0.0"
   }
 }
