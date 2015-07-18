@@ -1,4 +1,4 @@
-/* global it */
+/* global describe, before, it, after */
 
 'use strict';
 var assert = require('assert');
@@ -85,4 +85,29 @@ it('should return Promise', function (done) {
 		assert(/woo hoo/.test(data));
 		done();
 	}, done);
+});
+
+describe('uncaughtException', function () {
+	before(function () {
+		this.listeners = process.listeners('uncaughtException');
+		process.removeAllListeners('uncaughtException');
+	});
+
+	it('should not swallow errors in callback', function (done) {
+		var stream = new Readable();
+		stream.push(null);
+
+		read(stream, function() {
+			throw new Error('uncaughtException');
+		});
+
+		process.on('uncaughtException', function (err) {
+			assert.equal(err.message, 'uncaughtException');
+			done();
+		});
+	});
+
+	after(function () {
+		this.listeners.forEach(process.on.bind(process, 'uncaughtException'));
+	});
 });

@@ -37,29 +37,36 @@ module.exports = function read(stream, options, cb) {
 
 	if (options.encoding === undefined) { options.encoding = 'utf8'; }
 
-	var promise = new Promise(function (resolve, reject) {
-		var sink = new BufferStream();
-
-		sink.on('finish', function () {
-			var data = Buffer.concat(this.buffer, this.length);
-
-			if (options.encoding) {
-				data = data.toString(options.encoding);
-			}
-
-			resolve(data);
-		});
-
-		stream.once('error', reject);
-
-		stream.pipe(sink);
-	});
+	var promise;
 
 	if (!cb) {
-		return promise;
+		var resolve, reject;
+		promise = new Promise(function(_res, _rej) {
+			resolve = _res;
+			reject = _rej;
+		});
+
+		cb = function (err, data) {
+			if (err) { return reject(err); }
+			resolve(data);
+		};
 	}
 
-	promise.then(function (data) {
+	var sink = new BufferStream();
+
+	sink.on('finish', function () {
+		var data = Buffer.concat(this.buffer, this.length);
+
+		if (options.encoding) {
+			data = data.toString(options.encoding);
+		}
+
 		cb(null, data);
-	}, cb);
-};
+	});
+
+	stream.once('error', cb);
+
+	stream.pipe(sink);
+
+	return promise;
+}
